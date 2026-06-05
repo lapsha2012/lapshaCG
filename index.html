@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ЛАПША КЛИКЕР — Лучший кликер!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Comic Neue', system-ui, sans-serif;
+            padding: 20px;
+        }
+
+        .game-container {
+            max-width: 550px;
+            width: 100%;
+            background: rgba(255, 245, 220, 0.95);
+            border-radius: 60px 30px 60px 30px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,200,0.6);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #e67e22, #f39c12);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #d35400;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .stats {
+            background: #2c2c3a;
+            border-radius: 30px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #ffecb3;
+        }
+
+        .noodle-count {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #f9a825;
+            text-shadow: 0 0 10px #ff8f00;
+        }
+
+        .click-area {
+            margin: 1rem 0;
+        }
+
+        .noodle-btn {
+            background: radial-gradient(circle at 30% 20%, #f5b041, #d35400);
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: none;
+            font-size: 5rem;
+            cursor: pointer;
+            box-shadow: 0 15px 0 #7e2e00;
+            transition: 0.05s linear;
+            color: #fff3e0;
+            font-weight: bold;
+        }
+
+        .noodle-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 5px 0 #7e2e00;
+        }
+
+        .upgrades {
+            background: #3d2a1a;
+            border-radius: 40px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .upgrade-item {
+            background: #5c3e1f;
+            margin: 8px 0;
+            padding: 8px 12px;
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffefc0;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .upgrade-btn {
+            background: #f39c12;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .reset-area {
+            margin: 1rem 0;
+        }
+
+        .reset-btn {
+            background: #e67e22;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+        }
+
+        .floating {
+            position: fixed;
+            font-size: 1.8rem;
+            pointer-events: none;
+            animation: floatUp 1s ease-out forwards;
+            z-index: 1000;
+            font-weight: bold;
+            text-shadow: 0 0 5px black;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-80px);
+            }
+        }
+
+        .footer {
+            font-size: 0.7rem;
+            color: #7f5c3a;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1>💩🍜 ЛАПША КЛИКЕР 🍜💩</h1>
+    <div class="subtitle"> 💩ВОНЬ | ПЕР💩ДЕЖ | МОЧА💩</div>
+
+    <div class="stats">
+        <div>🍜💩 ЛАПШИ:</div>
+        <div class="noodle-count" id="noodleCount">0</div>
+        <div>⚡💩 ЗА КЛИКСИКС: <span id="perClick">1</span></div>
+        <div>🏆💩 ВСЕГО ПОРЦИЙ govna: <span id="totalPortions">0</span></div>
+        <div>🤖💩 АВТОВАДИМОВ: <span id="autoCount">0</span></div>
+    </div>
+
+    <div class="click-area">
+        <button class="noodle-btn" id="clickBtn">💩</button>
+    </div>
+
+    <div class="upgrades">
+        <h3>📈💩 УЛУЧШЕНИЯ П90</h3>
+        <div class="upgrade-item">
+            <span>🥢💩 Усиление ванны(+1 за клик)</span>
+            <button class="upgrade-btn" data-upgrade="click" data-cost="50">Приобрести (50)</button>
+        </div>
+        <div class="upgrade-item">
+            <span>🤖💩 Автовадим (+1 лапша / 2 сек)</span>
+            <button class="upgrade-btn" data-upgrade="auto" data-cost="100">Приобрести (100)</button>
+        </div>
+        <div class="upgrade-item">
+            <span>✨💩 Сестра видео (шанс x2)</span>
+            <button class="upgrade-btn" data-upgrade="lucky" data-cost="300">СПИЗДИТЬ (300)</button>
+        </div>
+        <div class="upgrade-item">
+            <span>🎯💩 БУРГЕР КЛИК! (+50 сразу)</span>
+            <button class="upgrade-btn" data-upgrade="master" data-cost="500">ВОНЯЕЕЕТ! (500)</button>
+        </div>
+    </div>
+
+    <div class="reset-area">
+        <button class="reset-btn" id="resetBtn">💩 ВЫБРОС ( с чистого рулона)</button>
+    </div>
+    <div class="footer">Видео с сестрой | Кликай лапшу как создателя 2012! 🔥</div>
+</div>
+
+<script>
+    // === ИГРОВОЕ СОСТОЯНИЕ ===
+    let noodles = 0;
+    let totalPortions = 0;
+    let perClick = 1;
+    let autoClickers = 0;
+    let luckyUpgrade = false;
+    let masterUpgrade = false;
+    let autoInterval = null;
+
+    // === ЭЛЕМЕНТЫ DOM ===
+    const noodleCountEl = document.getElementById('noodleCount');
+    const perClickEl = document.getElementById('perClick');
+    const totalPortionsEl = document.getElementById('totalPortions');
+    const autoCountEl = document.getElementById('autoCount');
+    const clickBtn = document.getElementById('clickBtn');
+
+    // === ЗАГРУЗКА СОХРАНЁННОЙ ИГРЫ ===
+    function loadGame() {
+        const saved = localStorage.getItem('laphsaClicker');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                noodles = data.noodles || 0;
+                totalPortions = data.totalPortions || 0;
+                perClick = data.perClick || 1;
+                autoClickers = data.autoClickers || 0;
+                luckyUpgrade = data.luckyUpgrade || false;
+                masterUpgrade = data.masterUpgrade || false;
+            } catch(e) {}
+        }
+        updateUI();
+        if (autoClickers > 0 && !autoInterval) {
+            startAutoClicker();
+        }
+    }
+
+    // === СОХРАНЕНИЕ ИГРЫ ===
+    function saveGame() {
+        const data = {
+            noodles, totalPortions, perClick,
+            autoClickers, luckyUpgrade, masterUpgrade
+        };
+        localStorage.setItem('laphsaClicker', JSON.stringify(data));
+    }
+
+    // === ОБНОВЛЕНИЕ ИНТЕРФЕЙСА ===
+    function updateUI() {
+        noodleCountEl.innerText = Math.floor(noodles);
+        perClickEl.innerText = perClick;
+        totalPortionsEl.innerText = totalPortions;
+        autoCountEl.innerText = autoClickers;
+    }
+
+    // === ВИЗУАЛЬНЫЙ ЭФФЕКТ "+N" ===
+    function showFloatingText(x, y, text, isCrit = false) {
+        const div = document.createElement('div');
+        div.className = 'floating';
+        div.innerText = text;
+        div.style.left = x + 'px';
+        div.style.top = y + 'px';
+        div.style.color = isCrit ? '#ffaa44' : '#ffdd99';
+        div.style.fontSize = isCrit ? '2.2rem' : '1.8rem';
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 1000);
+    }
+
+    // === ДОБАВЛЕНИЕ ЛАПШИ ===
+    function addNoodles(amount, isCrit = false) {
+        noodles += amount;
+        totalPortions += amount;
+        updateUI();
+        saveGame();
+    }
+
+    // === КЛИК ПО ЛАПШЕ ===
+    function handleClick(event) {
+        let gain = perClick;
+        let isCrit = false;
+
+        if (luckyUpgrade && Math.random() < 0.2) {
+            gain *= 2;
+            isCrit = true;
+        }
+        if (masterUpgrade) {
+            gain += 50;
+        }
+
+        addNoodles(gain, isCrit);
+
+        const rect = clickBtn.getBoundingClientRect();
+        const x = rect.left + rect.width / 2 - 20;
+        const y = rect.top - 30;
+        let text = `+${gain}`;
+        if (isCrit) text = `💩 ${text} 💩`;
+        showFloatingText(x, y, text, isCrit);
+    }
+
+    // === ПОКУПКА АПГРЕЙДА ===
+    function buyUpgrade(type, cost) {
+        if (noodles >= cost) {
+            noodles -= cost;
+            switch (type) {
+                case 'click':
+                    perClick++;
+                    break;
+                case 'auto':
+                    autoClickers++;
+                    if (!autoInterval) startAutoClicker();
+                    break;
+                case 'lucky':
+                    if (!luckyUpgrade) luckyUpgrade = true;
+                    else return;
+                    break;
+                case 'master':
+                    if (!masterUpgrade) masterUpgrade = true;
+                    else return;
+                    break;
+                default: return;
+            }
+            updateUI();
+            saveGame();
+            return true;
+        } else {
+            alert(`❌ Не хватает лапшевидных! Нужно ${cost} порций говна.`);
+            return false;
+        }
+    }
+
+    // === ЗАПУСК АВТОКЛИКЕРА ===
+    function startAutoClicker() {
+        if (autoInterval) clearInterval(autoInterval);
+        autoInterval = setInterval(() => {
+            if (autoClickers > 0) {
+                const autoGain = autoClickers;
+                addNoodles(autoGain);
+                const rect = document.querySelector('.upgrades').getBoundingClientRect();
+                showFloatingText(rect.left + 50, rect.top - 20, `🤖 +${autoGain}`);
+            }
+        }, 2000);
+    }
+
+    // === СБРОС ПРОГРЕССА ===
+    function resetGame() {
+        if (confirm('🤔 Точно начать с чистого рулона? Ты же обосрешься школяр💩!.')) {
+            noodles = 0;
+            totalPortions = 0;
+            perClick = 1;
+            autoClickers = 0;
+            luckyUpgrade = false;
+            masterUpgrade = false;
+            if (autoInterval) {
+                clearInterval(autoInterval);
+                autoInterval = null;
+            }
+            updateUI();
+            saveGame();
+        }
+    }
+
+    // === НАЗНАЧЕНИЕ СОБЫТИЙ ===
+    clickBtn.addEventListener('click', handleClick);
+
+    document.querySelectorAll('.upgrade-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const type = btn.dataset.upgrade;
+            const cost = parseInt(btn.dataset.cost);
+            buyUpgrade(type, cost);
+        });
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', resetGame);
+
+    // === СТАРТ ===
+    loadGame();
+</script>
+</body>
+</html>
